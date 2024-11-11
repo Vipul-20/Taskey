@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+/* body {
   background: rgb(2, 0, 36);
   background: linear-gradient(
     90deg,
@@ -10,4 +10,4 @@ body {
     rgba(9, 9, 121, 1) 19%,
     rgba(0, 212, 255, 1) 55%
   );
-}
+} */

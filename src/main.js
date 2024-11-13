@@ -1,5 +1,5 @@
 // import "./style.css";
-import { Input } from "postcss";
+
 import "./index.css";
 import { yearEL, inputEL, formEl } from "./domSelection";
 
@@ -14,8 +14,12 @@ formEl.addEventListener("submit", (e) => {
   if (inputEL.value === "") {
     return;
   }
-
-  task.push(inputEL.value);
+  //
+  task.push({
+    title: inputEL.value,
+    isCompleted: false,
+    id: crypto.randomUUID(),
+  });
   inputEL.value = "";
 
   console.log(task);

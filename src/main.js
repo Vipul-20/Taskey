@@ -1,23 +1,28 @@
 // import "./style.css";
 import { Input } from "postcss";
 import "./index.css";
+import { yearEL, inputEL, formEl } from "./domSelection";
 
-// MARK: DOM Selectors
-const yearEL = document.querySelector("date");
-const inputEL = document.querySelector("input");
-const formEl = document.querySelector("form");
+const task = [];
 
 // MARK: Event Listeners
 formEl.addEventListener("submit", (e) => {
   // Prevent default form submission (turant refesh page hone se rokt hai)
   e.preventDefault();
-  console.log(inputEL.value);
+
+  //   checking if input is empty
+  if (inputEL.value === "") {
+    return;
+  }
+
+  task.push(inputEL.value);
+  inputEL.value = "";
+
+  console.log(task);
 });
 
 // MARK: Empty Input
 input.value = "";
-
-
 
 // Get new date function
 // (() => {
@@ -25,3 +30,5 @@ input.value = "";
 //   const year = date.getFullYear();
 //   yearEL.textContent = year;
 // })();
+
+// c

@@ -1,9 +1,22 @@
 // import "./style.css";
 
 import "./index.css";
-import { yearEL, inputEL, formEl } from "./domSelection";
+import { yearEL, inputEL, formEl, taskListEl } from "./domSelection";
+import Task from "./components/task";
 
+// MARK:collection of tasks
 const task = [];
+
+// MARK: Render Task
+function renderTask() {
+  taskListEl.innerHTML = "";
+  const fragment = document.createDocumentFragment();
+  task.forEach((task) => {
+    const taskEl = Task(task.value, task.isCompleted);
+    fragment.appendChild(taskEl);
+  });
+  taskListEl.appendChild(fragment);
+}
 
 // MARK: Event Listeners
 formEl.addEventListener("submit", (e) => {
@@ -14,19 +27,20 @@ formEl.addEventListener("submit", (e) => {
   if (inputEL.value === "") {
     return;
   }
-  //
-  task.push({
-    title: inputEL.value,
+  // pushing new task to task array
+  task.unshift({
+    value: inputEL.value,
     isCompleted: false,
     id: crypto.randomUUID(),
   });
   inputEL.value = "";
 
   console.log(task);
+  renderTask();
 });
 
 // MARK: Empty Input
-input.value = "";
+// input.value = "";
 
 // Get new date function
 // (() => {

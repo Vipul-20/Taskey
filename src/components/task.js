@@ -1,17 +1,19 @@
-export default function Task(content, checked) {
+export default function Task(content, checked, id) {
   const label = document.createElement("label");
-  label.addEventListener("click", (e) => {
-    console.log("hii");
-  });
+
+  // label.addEventListener("click", (e) => {
+  //   console.log("hii");
+  // });
   label.className =
     " label cursor-pointer " + (checked && " bg-zinc-300 rounded");
 
   const span = document.createElement("span");
-  span.className = "label-text";
+  span.className = "label-text ";
   span.textContent = content;
   label.appendChild(span);
 
   const input = document.createElement("input");
+  input.id = id;
   input.type = "checkbox";
   input.checked = checked;
   input.className = "checkbox checkbox-accent";

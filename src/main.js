@@ -12,7 +12,7 @@ function renderTask() {
   taskListEl.innerHTML = "";
   const fragment = document.createDocumentFragment();
   task.forEach((task) => {
-    const taskEl = Task(task.value, task.isCompleted);
+    const taskEl = Task(task.value, task.isCompleted, task.id);
     fragment.appendChild(taskEl);
   });
   taskListEl.appendChild(fragment);
@@ -39,9 +39,17 @@ formEl.addEventListener("submit", (e) => {
   renderTask();
 });
 
+// tasklist
+taskListEl.addEventListener("click", (e) => {
+  if (e.target.tagName === "INPUT  ") {
+    console.log(e.target.closest("label").id);
+    console.log("hey");
+  }
+});
+
 // get new date
-(function () {
-  const date = new Date();
-  const year = date.getFullYear();
-  yearEL.textContent = year;
-})();
+// (function () {
+//   const date = new Date();
+//   const year = date.getFullYear();
+//   yearEL.textContent = year;
+// })();

@@ -39,14 +39,9 @@ formEl.addEventListener("submit", (e) => {
   renderTask();
 });
 
-// MARK: Empty Input
-// input.value = "";
-
-// Get new date function
-// (() => {
-//   const date = new Date();
-//   const year = date.getFullYear();
-//   yearEL.textContent = year;
-// })();
-
-// c
+// get new date
+(function () {
+  const date = new Date();
+  const year = date.getFullYear();
+  yearEL.textContent = year;
+})();

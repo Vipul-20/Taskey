@@ -1,5 +1,8 @@
 export default function Task(content, checked) {
   const label = document.createElement("label");
+  label.addEventListener("click", (e) => {
+    console.log("hii");
+  });
   label.className =
     " label cursor-pointer " + (checked && " bg-zinc-300 rounded");
 

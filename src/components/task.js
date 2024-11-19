@@ -16,7 +16,7 @@ export default function Task(content, checked, id) {
   input.id = id;
   input.type = "checkbox";
   input.checked = checked;
-  input.className = "checkbox checkbox-accent";
+  input.className = "checkbox checkbox-accent"; 
   label.appendChild(input);
 
   return label;

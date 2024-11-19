@@ -1,11 +1,22 @@
-// import "./style.css";
-
 import "./index.css";
 import { yearEL, inputEL, formEl, taskListEl } from "./domSelection";
 import Task from "./components/task";
 
 // MARK:collection of tasks
-const task = [];
+let task = [];
+
+// MARK: Toggle Task
+// the function toggles the task
+function toggleTask(id) {
+  task = task.map((task) => {
+    if (task.id === id) {
+      return { ...task, isCompleted: !task.isCompleted };
+    }
+    return task;
+  });
+  // show uncompleted tasks
+  task.sort((a, b) => a.isCompleted - b.isCompleted);
+}
 
 // MARK: Render Task
 function renderTask() {
@@ -24,7 +35,7 @@ formEl.addEventListener("submit", (e) => {
   e.preventDefault();
 
   //   checking if input is empty
-  if (inputEL.value === "") {
+  if (!inputEL.value) {
     return;
   }
   // pushing new task to task array
@@ -43,13 +54,16 @@ formEl.addEventListener("submit", (e) => {
 taskListEl.addEventListener("click", (e) => {
   if (e.target.tagName === "INPUT  ") {
     console.log(e.target.closest("label").id);
-    console.log("hey");
+    toggleTask(e.target.closest("label").id);
+    renderTask();
   }
 });
 
 // get new date
-// (function () {
-//   const date = new Date();
-//   const year = date.getFullYear();
-//   yearEL.textContent = year;
-// })();
+// IIFE
+(function () {
+  const year = new Date().getFullYear();
+
+  // MARK: Update the DOM
+  yearEL.textContent = `${year}`;
+})();

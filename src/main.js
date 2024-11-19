@@ -1,6 +1,12 @@
+import localforage from "localforage";
 import "./index.css";
 import { yearEL, inputEL, formEl, taskListEl } from "./domSelection";
 import Task from "./components/task";
+
+localforage.setItem("fruits", "apple");
+localforage.getItem("fruits", (err, value) => {
+  console.log(value);
+});
 
 // MARK:collection of tasks
 let task = [];

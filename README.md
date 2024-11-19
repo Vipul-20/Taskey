@@ -12,6 +12,8 @@
 4. In your css file add the tailwind directives:
    `@tailwind base;` `@tailwind components;` `@tailwind utilities;`
 
+5. pnpm install localforage
+
 ---
 
 # DaisyUI Setup

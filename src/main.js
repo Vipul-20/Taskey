@@ -1,75 +1,81 @@
 import localforage from "localforage";
 import "./index.css";
 import { yearEL, inputEL, formEl, taskListEl } from "./domSelection";
-import Task from "./components/task";
+import Task from "./components/Task";
 
-localforage.setItem("fruits", "apple");
-localforage.getItem("fruits", (err, value) => {
-  console.log(value);
+let state = [];
+
+localforage.getItem("tasks").then((tasks) => {
+  if (tasks) {
+    state = tasks;
+    console.log(state);
+    renderTasks();
+  }
 });
 
-// MARK:collection of tasks
-let task = [];
-
 // MARK: Toggle Task
-// the function toggles the task
+// This toggles the isCompleted property of the task
+// Will be called when the user clicks on the checkbox
 function toggleTask(id) {
-  task = task.map((task) => {
+  state = state.map((task) => {
     if (task.id === id) {
       return { ...task, isCompleted: !task.isCompleted };
     }
     return task;
   });
-  // show uncompleted tasks
-  task.sort((a, b) => a.isCompleted - b.isCompleted);
+  // Show uncompleted state first
+  state.sort((a, b) => a.isCompleted - b.isCompleted);
+  localforage.setItem("tasks", state);
 }
 
-// MARK: Render Task
-function renderTask() {
+function renderTasks() {
   taskListEl.innerHTML = "";
   const fragment = document.createDocumentFragment();
-  task.forEach((task) => {
+
+  state.forEach((task) => {
     const taskEl = Task(task.value, task.isCompleted, task.id);
     fragment.appendChild(taskEl);
   });
+
+  // Render on real DOM
   taskListEl.appendChild(fragment);
 }
 
-// MARK: Event Listeners
 formEl.addEventListener("submit", (e) => {
-  // Prevent default form submission (turant refesh page hone se rokt hai)
-  e.preventDefault();
+  e.preventDefault(); // Prevent the page from reloading
 
-  //   checking if input is empty
+  //  Checking for empty input
   if (!inputEL.value) {
     return;
   }
-  // pushing new task to task array
-  task.unshift({
+
+  state.unshift({
+    id: crypto.randomUUID(),
     value: inputEL.value,
     isCompleted: false,
-    id: crypto.randomUUID(),
   });
-  inputEL.value = "";
 
-  console.log(task);
-  renderTask();
+  console.log(state);
+  localforage.setItem("tasks", state);
+
+  renderTasks();
+
+  //  Empty the input field
+  inputEL.value = "";
 });
 
-// tasklist
 taskListEl.addEventListener("click", (e) => {
-  if (e.target.tagName === "INPUT  ") {
+  if (e.target.tagName === "INPUT") {
     console.log(e.target.closest("label").id);
     toggleTask(e.target.closest("label").id);
-    renderTask();
+    renderTasks();
   }
 });
 
-// get new date
 // IIFE
-(function () {
-  const year = new Date().getFullYear();
+// (function () {
+//   const year = new Date().getFullYear();
 
-  // MARK: Update the DOM
-  yearEL.textContent = `${year}`;
-})();
+//   // MARK: Update the DOM
+//   yearEL.textContent = `${year}`;
+// })();
